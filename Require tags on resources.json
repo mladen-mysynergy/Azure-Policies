@@ -1,0 +1,49 @@
+{
+  "mode": "All",
+  "policyRule": {
+    "if": {
+      "anyOf": [
+        {
+          "field": "tags['Service']",
+          "exists": "false"
+        },
+        {
+          "field": "tags['Environment']",
+          "exists": "false"
+        },
+        {
+          "field": "tags['Company']",
+          "exists": "false"
+        },
+        {
+          "field": "tags['Accountable']",
+          "exists": "false"
+        },
+        {
+          "field": "tags['Responsible']",
+          "exists": "false"
+        },
+        {
+          "field": "tags['Business Impact']",
+          "exists": "false"
+        },
+        {
+          "field": "tags['Tier']",
+          "exists": "false"
+        },
+        {
+          "field": "tags['Availability']",
+          "exists": "false"
+        },
+        {
+          "field": "tags['Network']",
+          "exists": "false"
+        }
+      ]
+    },
+    "then": {
+      "effect": "deny"
+    }
+  },
+  "parameters": {}
+}
