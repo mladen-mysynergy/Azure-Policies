@@ -1,49 +1,75 @@
 {
-  "mode": "All",
-  "policyRule": {
-    "if": {
-      "anyOf": [
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "resources": [
         {
-          "field": "tags['Service']",
-          "exists": "false"
+            "type": "Microsoft.Authorization/policyDefinitions",
+            "apiVersion": "2018-05-01",
+            "name": "mys-enforce-tag-use",
+            "properties":{
+                "description": "MY Synergy - Enforce list of tags for all resources",
+                "displayName": "MY Synergy - Enforce list of tags for all resources",
+                "policyRule": {
+                    "if": {
+                      "anyOf": [
+                        {
+                          "field": "tags['Service']",
+                          "exists": "false"
+                        },
+                        {
+                          "field": "tags['Environment']",
+                          "exists": "false"
+                        },
+                        {
+                          "field": "tags['Company']",
+                          "exists": "false"
+                        },
+                        {
+                          "field": "tags['Accountable']",
+                          "exists": "false"
+                        },
+                        {
+                          "field": "tags['Responsible']",
+                          "exists": "false"
+                        },
+                        {
+                          "field": "tags['Business Impact']",
+                          "exists": "false"
+                        },
+                        {
+                          "field": "tags['Tier']",
+                          "exists": "false"
+                        },
+                        {
+                          "field": "tags['Availability']",
+                          "exists": "false"
+                        },
+                        {
+                          "field": "tags['Network']",
+                          "exists": "false"
+                        }
+                      ]
+                    },
+                    "then": {
+                      "effect": "deny"
+                    }
+                  }
+            }
         },
         {
-          "field": "tags['Environment']",
-          "exists": "false"
-        },
-        {
-          "field": "tags['Company']",
-          "exists": "false"
-        },
-        {
-          "field": "tags['Accountable']",
-          "exists": "false"
-        },
-        {
-          "field": "tags['Responsible']",
-          "exists": "false"
-        },
-        {
-          "field": "tags['Business Impact']",
-          "exists": "false"
-        },
-        {
-          "field": "tags['Tier']",
-          "exists": "false"
-        },
-        {
-          "field": "tags['Availability']",
-          "exists": "false"
-        },
-        {
-          "field": "tags['Network']",
-          "exists": "false"
+            "type": "Microsoft.Authorization/policyAssignments",
+            "apiVersion": "2018-05-01",
+            "name": "mys-enforce-tag-use-assignment",
+            "dependsOn": [
+                "mys-enforce-tag-use"
+            ],
+            "properties":{
+                "description": "MY Synergy - Enforce list of tags for all resources",
+                "displayName": "MY Synergy - Enforce list of tags for all resources",
+                "policyDefinitionId": "[concat(subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/', 'mys-enforce-tag-use')]"
+            }
         }
-      ]
-    },
-    "then": {
-      "effect": "deny"
-    }
-  },
-  "parameters": {}
+    ],
+    "outputs": {}
 }
